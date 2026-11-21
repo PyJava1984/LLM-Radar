@@ -30,11 +30,11 @@ env
 TIMEZONE=Asia/Dhaka
 ```
 
-The daily collection workflow will execute at **00:00 (midnight) local time**.
+The following decisions have been made:
 
-All database timestamps will be stored using UTC-aware timestamps (`TIMESTAMPTZ`).
-
-The application must convert between the configured operational timezone and UTC when processing scheduled jobs and calculating reporting periods.
+- The daily collection workflow will execute at **00:00 (midnight) local time**.
+- All database timestamps will be stored using UTC-aware timestamps (`TIMESTAMPTZ`).
+- The application must convert between the configured operational timezone and UTC when processing scheduled jobs and calculating reporting periods.
 
 ## 3\. Alternatives Considered
 
@@ -67,16 +67,16 @@ The following alternatives were evaluated:
 
 The following implementation requirements must be followed:
 
-1. Configure the operational timezone through environment variables.
-2. Use `Asia/Dhaka` as the initial default timezone.
-3. Use timezone-aware scheduling in n8n.
-4. Schedule the daily collection workflow at `00:00` local time.
-5. Store all database timestamps using UTC-aware `TIMESTAMPTZ` fields.
-6. Convert reporting date boundaries from the configured local timezone to UTC before querying PostgreSQL.
-7. Apply timezone-aware calculations to daily, weekly, and monthly reports.
-8. Avoid hardcoding timezone values in application business logic.
+- Configure the operational timezone through environment variables.
+- Use `Asia/Dhaka` as the initial default timezone.
+- Use timezone-aware scheduling in n8n.
+- Schedule the daily collection workflow at **00:00 local time**.
+- Store all database timestamps using UTC-aware `TIMESTAMPTZ` fields.
+- Convert reporting date boundaries from the configured local timezone to UTC before querying PostgreSQL.
+- Apply timezone-aware calculations to daily, weekly, and monthly reports.
+- Avoid hardcoding timezone values in application business logic.
 
-### Example Configuration
+### 5.1. Example Configuration
 
 env
 
@@ -84,7 +84,7 @@ env
 TIMEZONE=Asia/Dhaka
 ```
 
-### Scheduling Configuration
+### 5.2. Scheduling Configuration
 
 | Setting | Value |
 | --- | --- |
@@ -93,7 +93,7 @@ TIMEZONE=Asia/Dhaka
 | Timezone | Asia/Dhaka |
 | Frequency | Daily |
 
-### Timestamp Handling
+### 5.3. Timestamp Handling
 
 | Operation | Timezone |
 | --- | --- |
@@ -105,5 +105,5 @@ TIMEZONE=Asia/Dhaka
 
 ## 6\. Related ADRs
 
-- ADR-0002: PostgreSQL as Primary Database
-- ADR-0004: n8n Workflow Orchestration
+- **ADR-0002:** PostgreSQL as Primary Database
+- **ADR-0004:** n8n Workflow Orchestration
